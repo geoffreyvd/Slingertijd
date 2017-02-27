@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
-import { AuthHttp } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
@@ -13,22 +13,22 @@ export class HttpServiceService {
 	urlAPI: string;
 
   constructor(private http: Http) { 
-  	this.urlAPI = "http://test.slingertijd.nl/api/authenticate";
+  	this.urlAPI = "http://test.slingertijd.nl/api/";
   }
 
   login (email: string, password: string): Observable<string> {
   	let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(this.urlAPI, { email, password }, options)
+    return this.http.post(this.urlAPI + "authenticate", { email, password }, options)
                     .map(this.extractData)
                     .catch(this.handleError);
   };
 
   private extractData(res: Response) {
 	  let body = res.json();
-	  console.log(body);
-	  return body.data || { };
+	  console.log(body.token);
+	  return body || { };
 	}
 
   private handleError (error: Response | any) {

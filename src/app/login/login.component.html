@@ -1,0 +1,10 @@
+<div>
+
+	<input [(ngModel)]="user.username" />
+	<input [(ngModel)]="user.password" />
+  	<button (click)="login(user)">login</button>
+  	<p [hidden]="!this.user.token">id_token: {{this.user.token}}</p>
+  	<p [hidden]="!errorMessage">errorMessage: {{errorMessage}}</p>
+  	
+	
+</div>
