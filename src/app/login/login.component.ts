@@ -4,30 +4,19 @@ import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: []
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   user = { 
     username : "",
-    password : "",
-    token : ""
+    password : ""
   }
-  errorMessage = '';
 
   constructor (private auth :AuthService){}
 
   ngOnInit() {  }
 
-  login(user){
-    try{
-      this.auth.logIn(user);
-    }catch(e){
-      this.errorMessage = e;
-    }
-  }
-
-  getIdToken(){
-    return localStorage.getItem('id_token');
+  login(user): void{
+    this.auth.logIn(user);
   }
 }

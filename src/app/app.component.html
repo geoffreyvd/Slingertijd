@@ -1,8 +1,8 @@
 <nav>
 	<a routerLink="/home" routerLinkActive="active">Home</a>
-	<a routerLink="/login" routerLinkActive="active">Login</a>
 	<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
 	<a routerLink="/getters" routerLinkActive="active">Getters</a>
-	<button (click)="logOut()">Logout</button>
+  <a *ngIf="!auth.loggedIn()" routerLink="/login" routerLinkActive="active">Log In</a>
+  <a *ngIf="auth.loggedIn()" (click)="logOut()">Log Out</a>
 </nav>
 <router-outlet></router-outlet>
