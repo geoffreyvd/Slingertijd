@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map';
 import { Headers, RequestOptions } from '@angular/http';
 
 @Injectable()
-export class HttpServiceService {
+export class HttpService {
 	urlAPI: string;
 
   constructor(private http: Http) { 

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from '../http-service.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [HttpServiceService]
+  providers: []
 })
 export class LoginComponent implements OnInit {
   user = { 
@@ -15,23 +15,19 @@ export class LoginComponent implements OnInit {
   }
   errorMessage = '';
 
-  	constructor (private httpService: HttpServiceService){}
+  constructor (private auth :AuthService){}
 
-  	ngOnInit() {  }
+  ngOnInit() {  }
 
-  	login(user){
-  		this.httpService.login(user.username, user.password).subscribe(
-        id_token => this.loginSuccess(id_token),
-        error =>  this.errorMessage = <any>error);
+  login(user){
+    try{
+      this.auth.logIn(user);
+    }catch(e){
+      this.errorMessage = e;
     }
+  }
 
-    loginSuccess(id_token){
-      this.user.token = id_token.token;
-      localStorage.setItem('id_token', this.user.token);
-      this.errorMessage = '';
-    }
-
-    getIdToken(){
-      return localStorage.getItem('id_token');
-    }
+  getIdToken(){
+    return localStorage.getItem('id_token');
+  }
 }

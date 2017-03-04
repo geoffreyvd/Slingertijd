@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Http, RequestOptions } from '@angular/http';
+import { HttpService } from './services/http-service.service';
 import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     HttpModule
   ],
   providers: [
+    HttpService,
     AuthGuard,
     AuthService,
     {
