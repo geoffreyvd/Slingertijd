@@ -7,6 +7,7 @@ import { AuthService } from './services/auth.service'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  //TODO navigatie array
 
   constructor(private auth :AuthService){}
 

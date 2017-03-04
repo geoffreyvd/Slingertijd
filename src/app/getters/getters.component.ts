@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthHttp } from 'angular2-jwt';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-getters',
@@ -8,9 +9,8 @@ import { AuthHttp } from 'angular2-jwt';
 })
 export class GettersComponent implements OnInit {
   thing: string;
-  token: string;
 
-  constructor(public authHttp: AuthHttp) {}
+  constructor(public authHttp: AuthHttp, public auth: AuthService) {}
 
   ngOnInit() {
   }  
@@ -22,7 +22,6 @@ export class GettersComponent implements OnInit {
         err => console.log(err),
         () => console.log('Request Complete')
       );
-      this.token = localStorage.getItem('id_token');
   }
 
 }

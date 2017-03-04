@@ -1,5 +1,12 @@
 export class User {
-	private username :string;
-	private password :string;
-	private token :string;
+
+  constructor(
+    public id: number,
+    public name: string,
+    public email: string,
+    public created_at: string,
+    public updated_at: string,
+    public token :string,
+  ){}
+ 
 }

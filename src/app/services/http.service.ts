@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
+import { User } from '../models/user';
+import { AuthHttp } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/throw';
@@ -11,19 +13,26 @@ import { Headers, RequestOptions } from '@angular/http';
 @Injectable()
 export class HttpService {
 	urlAPI: string;
+  headers: Headers;
+  options: RequestOptions;
 
-  constructor(private http: Http) { 
-  	this.urlAPI = "http://test.slingertijd.nl/api/";
+  constructor(private http: Http, public authHttp: AuthHttp) { 
+  	this.urlAPI = "http://test.slingertijd.nl/api/";    
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
   }
 
   login (email: string, password: string): Observable<string> {
-  	let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.post(this.urlAPI + "authenticate", { email, password }, options)
-                    .map(this.extractData)
-                    .catch(this.handleError);
+    return this.http.post(this.urlAPI + 'authenticate', { email, password }, this.options)
+      .map(this.extractData)
+      .catch(this.handleError);
   };
+
+  getUser(): Observable<User> {
+    return this.authHttp.get(this.urlAPI + 'authenticate')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
 	  let body = res.json();
