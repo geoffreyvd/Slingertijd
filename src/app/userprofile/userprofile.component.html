@@ -1,7 +1,42 @@
-<p>
-  userprofile works!
-  username: {{auth.getUserName()}}  
-</p>
-<div class="timeline-container">
-  <horizontal-timeline [timelineElements]="timeline" [showContent]="true"></horizontal-timeline>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2 text">
+    <h1><strong>Uw profiel</strong></h1>
+    <div class="description">
+      <p>
+        Bekijk uw slinger!
+      </p>
+    </div>
+  </div>
+</div>
+<div class="form-box">
+  <div class="form-top">
+    <horizontal-timeline [timelineElements]="timeline" [showContent]="true"></horizontal-timeline>    
+  </div>
+  <div class="form-bottom">
+    <div class="row">
+      <div class="col-xs-12 col-sm-4">
+        <h3>Uw profiel:</h3>
+          <p>    
+            Naam: {{auth.user.name}}<br>
+            Email: {{auth.user.email}}<br>
+            Lid sinds: {{auth.user.created_at}}<br>
+          </p>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <h3>Uw categoriën:</h3>
+        <p *ngFor="let category of categories; let i = index">
+          <img width="200" height="200" class="media-object" src="https://unsplash.it/20{{i}}?random">{{category.name}} 
+        </p>
+      </div>
+      <div class="col-xs-12 col-sm-4">
+        <h3>Uw streamers:</h3>
+        <p *ngFor="let streamer of streamers">
+          Naam: {{streamer.name}} <br>
+          Beschrijving: {{streamer.description}} <br>
+          Geb datum: {{streamer.dateofbirth}} <br>
+          Bestaande sinds: {{streamer.created_at}} <br>
+        </p>
+      </div>
+    </div>    
+  </div>
 </div>

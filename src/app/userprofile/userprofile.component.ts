@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { HorizontalTimelineComponent } from '../horizontal-timeline/horizontal-timeline.component';
 import { TimelineElement } from '../horizontal-timeline/timeline-element';
+import { HttpService } from '../services/http.service';
+import { Streamer } from '../models/streamer';
+import { Category } from '../models/category';
 
 @Component({
   selector: 'app-userprofile',
@@ -10,6 +13,9 @@ import { TimelineElement } from '../horizontal-timeline/timeline-element';
 })
 export class UserprofileComponent implements OnInit {
   timelineElements: TimelineElement[];
+  streamers: Streamer[];
+  categories: Category[];
+  errorMessage: String;
   content = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum praesentium officia, fugit recusandae 
   ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, 
   ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam 
@@ -29,19 +35,30 @@ export class UserprofileComponent implements OnInit {
     { caption: '3 Mar', date: new Date(2015, 3, 3), title: 'Event title here', content: this.content },
   ];
 
-  constructor(public auth: AuthService) {
-    this.timelineElements = new Array;
-    this.timelineElements[0] = {
-      date: new Date(),
-      title: "",
-      selected: false,
-      content: "bami"
-    };
+  constructor(private httpService: HttpService, public auth: AuthService) {
+    this.timelineElements = [];
    }
 
   ngOnInit() {
     this.auth.retrieveUser();
-    
+    this.retrieveCategories();
+    this.retrieveStreamers();
   }
+
+  public retrieveStreamers(): void {
+    this.httpService.getStreamers()
+    .subscribe(
+      streamers => {this.streamers = streamers;},
+      error => this.errorMessage = error
+    );  
+  }
+
+  public retrieveCategories(): void {
+    this.httpService.getCategories()
+    .subscribe(
+      categories => {this.categories = categories;},
+      error => this.errorMessage = error
+    );
+  } 
 
 }

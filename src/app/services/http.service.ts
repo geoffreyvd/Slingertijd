@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { User } from '../models/user';
+import { Streamer } from '../models/streamer';
+import { Category } from '../models/category';
 import { AuthHttp } from 'angular2-jwt';
 
 import { Observable } from 'rxjs/Observable';
@@ -30,6 +32,18 @@ export class HttpService {
 
   getUser(): Observable<User> {
     return this.authHttp.get(this.urlAPI + 'authenticate')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getStreamers(): Observable<Streamer[]> {
+    return this.authHttp.get(this.urlAPI + 'streamers')
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.authHttp.get(this.urlAPI + 'categories')
       .map(this.extractData)
       .catch(this.handleError);
   }

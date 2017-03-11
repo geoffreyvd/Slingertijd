@@ -1,9 +1,13 @@
 <nav>
 	<a routerLink="/home" routerLinkActive="active">Home</a>
-	<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-  <a routerLink="/getters" routerLinkActive="active">Getters</a>
 	<a routerLink="/userprofile" routerLinkActive="active">Profile</a>
   <a *ngIf="!auth.loggedIn()" routerLink="/login" routerLinkActive="active">Log In</a>
   <a *ngIf="auth.loggedIn()" (click)="logOut()">Log Out</a>
 </nav>
-<router-outlet></router-outlet>
+<div class="top-content">
+  <div class="inner-bg">
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

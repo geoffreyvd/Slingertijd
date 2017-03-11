@@ -54,12 +54,5 @@ export class AuthService {
   getToken(): string {
     return localStorage.getItem('id_token');
   }
-
-  getUserName(): string {
-    return this.user.name;
-  }
-
-  getUserToken(): string {
-    return this.user.token;
-  }
+ 
 }
