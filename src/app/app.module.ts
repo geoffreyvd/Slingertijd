@@ -12,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { GettersComponent } from './getters/getters.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+import { HorizontalTimelineComponent } from './horizontal-timeline/horizontal-timeline.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'getters', component: GettersComponent, canActivate: [AuthGuard] },
+  { path: 'userprofile', component: UserprofileComponent, canActivate: [AuthGuard] },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full' 
@@ -44,7 +47,9 @@ const appRoutes: Routes = [
     LoginComponent,
     GettersComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    UserprofileComponent,
+    HorizontalTimelineComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

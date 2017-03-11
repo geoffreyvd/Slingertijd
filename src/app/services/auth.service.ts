@@ -6,18 +6,19 @@ import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
-  user2: User;
-	user = {
-    username : "",
-    password : "",
-    token : ""
-  }
+  private user: User;
   errorMessage: string;
 
   constructor(private httpService: HttpService, private router: Router) {
-    this.errorMessage = '';    }
+    this.errorMessage = '';
+    this.user = new User();
+  }
+
+  ngOnInit(){
+    
+  }
   
-  logIn(user): void{
+  public logIn(user): void{
     this.httpService.login(user.username, user.password)
     .subscribe(
       id_token => this.loginSuccess(id_token),
@@ -25,23 +26,23 @@ export class AuthService {
     );
   }
 
-  loginSuccess(id_token: any): void {
-    this.user.token = id_token.token;
-    localStorage.setItem('id_token', this.user.token);
+  private loginSuccess(id_token: any): void {
+    localStorage.setItem('id_token', id_token.token);
     this.errorMessage = '';
     this.router.navigate(['dashboard']);
-    this.retrieveUser();
   }
 
-  retrieveUser(): void {
-    this.httpService.getUser()
-    .subscribe(
-      user => {this.user2 = user;},
-      error => this.errorMessage = error
-    );
+  public retrieveUser(): void {
+    if (this.user.name === ""){
+      this.httpService.getUser()
+      .subscribe(
+        user => {this.user = user;},
+        error => this.errorMessage = error
+      );
+    }    
   }
 
-  logOut(): void{
+  public logOut(): void{
   	localStorage.removeItem('id_token');
     this.router.navigate(['login']);
   }
@@ -54,7 +55,11 @@ export class AuthService {
     return localStorage.getItem('id_token');
   }
 
-  getName(): string {
-    return this.user2.name;
+  getUserName(): string {
+    return this.user.name;
+  }
+
+  getUserToken(): string {
+    return this.user.token;
   }
 }
