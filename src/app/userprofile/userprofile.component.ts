@@ -14,7 +14,7 @@ export class UserprofileComponent implements OnInit {
   ipsa, quia velit nulla adipisci? Consequuntur aspernatur at, eaque hic repellendus sit dicta consequatur quae, 
   ut harum ipsam molestias maxime non nisi reiciendis eligendi! Doloremque quia pariatur harum ea amet quibusdam 
   quisquam, quae, temporibus dolores porro doloribus.`;
-  
+
   timeline = [
     { caption: '16 Jan', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: this.content },
     { caption: '28 Feb', date: new Date(2014, 2, 28), title: 'Event title here', content: this.content },
@@ -27,8 +27,7 @@ export class UserprofileComponent implements OnInit {
     { caption: '10 Dec', date: new Date(2014, 12, 10), title: 'Event title here', content: this.content },
     { caption: '29 Jan', date: new Date(2015, 1, 19), title: 'Event title here', content: this.content },
     { caption: '3 Mar', date: new Date(2015, 3, 3), title: 'Event title here', content: this.content },
-  ]
-
+  ];
 
   constructor(public auth: AuthService) {
     this.timelineElements = new Array;
